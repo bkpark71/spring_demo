@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Post;
+import com.example.demo.model.PostDto;
 import com.example.demo.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -36,12 +37,12 @@ public class PostController {
     }
 
     @PutMapping("/posts/{postId}")
-    public Post updatePost(@PathVariable("postId") int postId,
-                           @RequestBody Post post){
-        System.out.println("before == > " + post);
-        postService.updatePost(postId, post);
-        System.out.println("after == > " +post);
-        return post;
+    public String updatePost(@PathVariable("postId") int postId,
+                           @RequestBody PostDto postDto){
+        System.out.println("before == > " + postDto);
+        postService.updatePost(postId, postDto);
+        System.out.println("after == > " +postDto);
+        return "update 완료";
     }
 
     @GetMapping("/posts/{postId}")
