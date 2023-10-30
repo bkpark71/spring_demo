@@ -1,6 +1,9 @@
-package com.example.demo.repository;
+package com.example.demo.service;
 
-public class RateOrderReposotory implements OrderRepository{
+import org.springframework.stereotype.Service;
+
+//@Service
+public class RateOrderService implements OrderService {
     private final int DISCOUNT_RATE = 10;
 
     @Override
