@@ -14,16 +14,22 @@ public class MemoryProductRespository implements ProductRepository{
     private static int seq = 0;
 
     public MemoryProductRespository() {
-        seq++;
         Product product =
                 Product.builder()
-                       .productId(seq)
                        .productName("제품명1")
                        .maker("오리")
                        .price(15000)
                        .qty(100)
                        .build();
-        productMap.put(seq, product);
+        insert(product);
+        product =
+                Product.builder()
+                        .productName("제품명2")
+                        .maker("오리")
+                        .price(10000)
+                        .qty(1000)
+                        .build();
+        insert(product);
     }
 
 
@@ -39,8 +45,8 @@ public class MemoryProductRespository implements ProductRepository{
 
     @Override
     public Product insert(Product product) {
-        product.setProductId(seq);
-        Product put = productMap.put(++seq, product);
+        product.setProductId(++seq);
+        Product put = productMap.put(seq, product);
         return put;
     }
 
