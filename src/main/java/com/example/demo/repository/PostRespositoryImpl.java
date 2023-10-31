@@ -17,7 +17,7 @@ public class PostRespositoryImpl implements PostRepository{
     public PostRespositoryImpl() {
         seq++;
         Post post = new Post();
-        post.setPostid(seq);
+        post.setPostId(seq);
         post.setTitle("testTitle");
         post.setBody("testBody");
         post.setLikes(0);
@@ -42,13 +42,13 @@ public class PostRespositoryImpl implements PostRepository{
     @Override
     public int insertPost(Post post) {
         seq++;
-        post.setPostid(seq);
+        post.setPostId(seq);
         posts.put(seq, post);
-        return post.getPostid();
+        return post.getPostId();
     }
 
     @Override
     public void updatePost(Post post) {
-        posts.put(post.getPostid(), post);
+        posts.put(post.getPostId(), post);
     }
 }
