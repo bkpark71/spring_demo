@@ -57,8 +57,11 @@ public class WebPostController {
     @PostMapping("/updatePost/{postId}")
     public String updatePost(@PathVariable int postId,
                              @ModelAttribute PostDto postDto){
-        Post post = postService.getPostById(postId);
-        post.setLikes(postDto.getLikes());
+        System.out.println("updatePost 호출됨");
+//        Post post = postService.getPostById(postId);
+//        post.setLikes(postDto.getLikes());
+        postService.updatePost(postId, postDto);
+ //       System.out.println("post.likes : " + post.getLikes());
         return "redirect:/posts";
     }
 
