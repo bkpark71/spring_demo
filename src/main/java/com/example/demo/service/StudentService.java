@@ -53,5 +53,21 @@ public class StudentService {
         studentRepository.save(foundStudent);
         return "수정 완료";
     }
+
+    @Transactional(readOnly = true)
+    public List<Student> getAllStudentByMajorAndPoint(String major, int point){
+        List<Student> all = studentRepository.findByMajorLikeAndPointGreaterThanEqual(major, point);
+        return all;
+    }
+
+    @Transactional(readOnly = true)
+    public List<Student> getAllStudentsByMajor(String major) {
+        return studentRepository.findByMajorLike(major);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Student> getAllStudentsByPoint(int point) {
+        return studentRepository.findByPointGreaterThanEqual(point);
+    }
 }
 

@@ -49,4 +49,21 @@ public class StudentController {
         String res = studentService.updateStudent(studentId, studentDto);
         return res;
     }
+
+    @GetMapping("/major/{major}")
+    public List<Student> getAllStudentsByMajor(@PathVariable String major){
+        return studentService.getAllStudentsByMajor(major);
+    }
+
+    @GetMapping("/point/{point}")
+    public List<Student> getAllStudentsByPoint(@PathVariable int point){
+        return studentService.getAllStudentsByPoint(point);
+    }
+
+    @GetMapping("/major/{major}/point/{point}")
+    public List<Student> getAllStudentsByMajorAndPoint(@PathVariable String major,
+                                                       @PathVariable int point) {
+        return studentService.getAllStudentByMajorAndPoint(major, point);
+    }
+
 }
