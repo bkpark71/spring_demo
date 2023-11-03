@@ -18,14 +18,17 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-    @GetMapping
+    @GetMapping("")
     public List<Student> getAllStudent(){
-        return studentService.getAllStudent();
+        List<Student> allStudent = studentService.getAllStudent();
+        System.out.println("controller에서 출력");
+        allStudent.forEach(student -> System.out.println(student.getStudentId() + ":" + student.getName()));
+        return allStudent;
     }
 
     @GetMapping("/{studentId}")
     public Student getStudentInfo(@PathVariable int studentId) {
-        return studentService.getStudentInfo(studentId);
+        return studentService.getStudentInfo(studentId).get();
     }
 
     @DeleteMapping("/{studentId}")

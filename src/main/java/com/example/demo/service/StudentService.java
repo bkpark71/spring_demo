@@ -5,8 +5,10 @@ import com.example.demo.model.StudentDto;
 import com.example.demo.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StudentService {
@@ -17,39 +19,38 @@ public class StudentService {
         this.studentRepository = studentRepository;
     }
 
+    @Transactional(readOnly = true)
     public List<Student> getAllStudent(){
-        return studentRepository.findAll();
+        List<Student> all = studentRepository.findAll();
+        System.out.println("service에서 출력");
+        all.forEach(student -> System.out.println(student.getStudentId() + ":" + student.getName()));
+        return all;
     }
 
-    public Student getStudentInfo(int studentId){
+    @Transactional(readOnly = true)
+    public Optional<Student> getStudentInfo(int studentId){
         return studentRepository.findById(studentId);
     }
 
+    @Transactional
     public String removeStudent(int studentId){
-        Student removedStudent = studentRepository.removeById(studentId);
-        String result = "";
-        if(removedStudent != null)
-            result = "정상적으로 삭제되었습니다.";
-        else
-            result = "삭제 과정에서 오류가 발생했습니다.";
-        return result;
+        studentRepository.deleteById(studentId);
+        return "정상적으로 삭제되었습니다.";
     }
 
+    @Transactional
     public String addStudent(Student student){
         String result = "";
-        Student addedStudent = studentRepository.add(student);
+        Student addedStudent = studentRepository.save(student);
         System.out.println(addedStudent);
-        if(addedStudent == null)
-            result = "정상적으로 추가되었습니다.";
-        else
-            result = "등록 과정에서 오류가 발생했습니다.";
-        return result;
+        return "정상적으로 추가되었습니다.";
     }
 
+    @Transactional
     public String updateStudent(int studentId, StudentDto studentDto){
-        Student foundStudent = studentRepository.findById(studentId);
+        Student foundStudent = studentRepository.findById(studentId).get();
         foundStudent.setPoint(studentDto.getPoint());
-        studentRepository.update(studentId, foundStudent);
+        studentRepository.save(foundStudent);
         return "수정 완료";
     }
 }
